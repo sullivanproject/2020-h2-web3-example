@@ -3,14 +3,15 @@ import xmltodict
 import json
 from pprint import pprint
 
-def get_corona_data(startCreateDt, endCreateDt):
+
+def get_corona_data(start_created_at, end_created_at):
     url = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson"
     params = {
-        'serviceKey':'3orEATyZglGF61/gMb9YFa9bNrX72kHX/fxAq+bR17uawigH5YY8v5sr6cNNN6X/cLBtXzPIZN7M7lmwcfH7GQ==',
-        'pageNo':'1',
-        'numOfRows':10,
-        'startCreateDt': startCreateDt , # '20200701',
-        'endCreateDt':  endCreateDt , # '20200701',
+        'serviceKey': '3orEATyZglGF61/gMb9YFa9bNrX72kHX/fxAq+bR17uawigH5YY8v5sr6cNNN6X/cLBtXzPIZN7M7lmwcfH7GQ==',
+        'pageNo': '1',
+        'numOfRows': 10,
+        'startCreateDt': start_created_at,  # '20200701',
+        'endCreateDt':  end_created_at,  # '20200701',
     }
 
     res = requests.get(url, params=params)
@@ -33,7 +34,7 @@ def get_corona_data(startCreateDt, endCreateDt):
     # totalCount로 제대로 데이터가 가져와졌는지 확인하기
     totalCount = dict_data['response']['body']['totalCount']
     # print(totalCount)
-    if totalCount == "0" :
+    if totalCount == "0":
         return False
 
     # 지역 정보를 담은 리스트
@@ -43,6 +44,7 @@ def get_corona_data(startCreateDt, endCreateDt):
 
     return area_data
 
+
 if __name__ == "__main__":
-    data = get_corona_data('20200630','20200630')
+    data = get_corona_data('20200630', '20200630')
     print(data)
